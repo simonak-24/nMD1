@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MD2.University"
+             Title="University">
+    <ScrollView>
+        <VerticalStackLayout>
+            <HorizontalStackLayout Padding="15" Spacing="10">
+                <!-- Šajā Layout atrodas pogas, kas attiecas uz visu atmiņā esošo datu apstrādi. -->
+                <Button
+                    x:Name="DisplayAllButton"
+                    Text="Display all data"
+                    Clicked="DisplayAllButton_Clicked"/>
+                <Button
+                    x:Name="GenerateDataButton"
+                    Text="Generate test data"
+                    Clicked="GenerateDataButton_Clicked"/>
+                <Label Padding="5"
+                    x:Name="WarningLabel"
+                    Text="Warning! This action clears the database contents before generating the new data."/>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Padding="5" Spacing="10">
+                <!-- Šajā Layout atrodas pogas, kas attiecas uz individuālu objektu apstrādi. -->
+                <HorizontalStackLayout Padding="5" Spacing="5" BackgroundColor="SlateBlue">
+                    <!-- Šajā Layout atrodas pogas, kas kontrolē jaunu objektu izveidi. -->
+                    <Button
+                        x:Name="AddStudentButton"
+                        Text="Add Student"
+                        Clicked="AddStudentButton_Clicked"/>
+                    <Button
+                        x:Name="AddAssignmentButton"
+                        Text="Add Assignment"
+                        Clicked="AddAssignmentButton_Clicked"/>
+                    <Button
+                        x:Name="AddSubmissionButton"
+                        Text="Add Submission"
+                        Clicked="AddSubmissionButton_Clicked"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Padding="5" Spacing="5" BackgroundColor="SlateBlue">
+                    <!-- Šajā Layout atrodas pogas, kas kontrolē esošu objektu labošanu. -->
+                    <Button
+                        x:Name="EditStudentButton"
+                        Text="Edit Student"
+                        Clicked="EditStudentButton_Clicked"/>
+                    <Button
+                        x:Name="EditAssignmentButton"
+                        Text="Edit Assignment"
+                        Clicked="EditAssignmentButton_Clicked"/>
+                    <Button
+                        x:Name="EditSubmissionButton"
+                        Text="Edit Submisssion"
+                        Clicked="EditSubmissionButton_Clicked"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Padding="5" Spacing="5" BackgroundColor="SlateBlue">
+                    <!-- Šajā Layout atrodas pogas, kas kontrolē esošu objektu dzēšanu. -->
+                    <Button
+                        x:Name="DeleteStudentButton"
+                        Text="Delete Student"
+                        Clicked="DeleteStudentButton_Clicked"/>
+                    <Button
+                        x:Name="DeleteAssignmentButton"
+                        Text="Delete Assignment"
+                        Clicked="DeleteAssignmentButton_Clicked"/>
+                    <Button
+                        x:Name="DeleteSubmissionButton"
+                        Text="Delete Submisssion"
+                        Clicked="DeleteSubmissionButton_Clicked"/>
+                </HorizontalStackLayout>
+            </HorizontalStackLayout>
+
+            <!-- Label, kas paredzēts datu parādīšanai lietotājam. -->
+            <Label Padding="10" 
+                x:Name="DisplayLabel" />
+            
+            <VerticalStackLayout Padding="10" Spacing="5">
+                <!-- Šajā Layout atrodas labojamo objektu izvēlnes. -->
+                <!-- Izvēlņu opcijas tiek pievienotas ar C#. -->
+                <Picker x:Name="SelectEditStudent"
+                    Title="Select Student:"
+                    SelectedIndexChanged="SelectEditStudent_SelectedIndexChanged">
+                </Picker>
+                <Picker x:Name="SelectEditAssignment"
+                    Title="Select Assignment:"
+                    SelectedIndexChanged="SelectEditAssignment_SelectedIndexChanged">
+                </Picker>
+                <Picker x:Name="SelectEditSubmission"
+                    Title="Select Submission:"
+                    SelectedIndexChanged="SelectEditSubmission_SelectedIndexChanged">
+                </Picker>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Padding="10" Spacing="5"
+                x:Name="StudentForm">
+                <!-- Šajā Layout atrodas forma Student objekta pievienošanai vai labošanai. -->
+                <Entry
+                    x:Name="StudentNameEntry"
+                    Placeholder="Enter Student name:"/>
+                <Entry
+                    x:Name="StudentSurnameEntry"
+                    Placeholder="Enter Student surname:"/>
+                <Picker x:Name="StudentGenderPicker"
+                    Title="Select Student gender:">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Man</x:String>
+                            <x:String>Woman</x:String>
+                            <x:String>Other</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Entry
+                    x:Name="StudentIdEntry"
+                    Placeholder="Enter Student Id number:"/>
+
+                <!-- Poga jaunā Student objekta saglabāšanai. -->
+                <Button
+                    x:Name="AddStudentSubmit"
+                    Text="Add Student"
+                    Clicked="AddStudentSubmit_Clicked"/>
+                <!-- Poga labotā Student objekta saglabāšanai. -->
+                <Button
+                    x:Name="EditStudentSubmit"
+                    Text="Edit Student"
+                    Clicked="EditStudentSubmit_Clicked"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Padding="10" Spacing="5"
+                x:Name="DeleteStudentForm">
+                <!-- Šajā Layout atrodas forma Student objekta dzēšanai. -->
+
+                <!-- Izvēlne dzēšamā Student objekta izvēlei no eksistējošajiem. -->
+                <!-- Izvēlnes opcijas tiek pievienotas ar C#. -->
+                <Picker x:Name="SelectDeleteStudent"    
+                        Title="Select Student:"
+                        SelectedIndexChanged="SelectDeleteStudent_SelectedIndexChanged">
+                </Picker>
+
+                <!-- Poga izvēlētā Student objekta dzēšanai no saraksta. -->
+                <Button
+                    x:Name="DeleteStudentSubmit"
+                    Text="Delete Student"
+                    Clicked="DeleteStudentSubmit_Clicked"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Padding="10" Spacing="5"
+                x:Name="AssignmentForm">
+                <!-- Šajā Layout atrodas forma Assignment objekta pievienošanai vai labošanai. -->
+
+                <!-- Izvēlne Assignment objekta Course izvēlei no eksistējošajiem Course. -->
+                <!-- Izvēlnes opcijas tiek pievienotas ar C#. -->
+                <Picker x:Name="AssignmentCoursePicker"
+                    Title="Select Assignment course:">
+                </Picker>
+
+                <DatePicker
+                    x:Name="AssignmentDatePicker"
+                    MinimumDate="01/09/2024"
+                    MaximumDate="12/31/2024"/>
+                <Entry
+                    x:Name="AssignmentDescriptionEntry"
+                    Placeholder="Enter Assignment description:"/>
+
+                <!-- Poga jauna Assignment objekta saglabāšanai. -->
+                <Button
+                    x:Name="AddAssignmentSubmit"
+                    Text="Add Assignment"
+                    Clicked="AddAssignmentSubmit_Clicked"/>
+                <!-- Poga labotā Assignment objekta saglabāšanai. -->
+                <Button
+                    x:Name="EditAssignmentSubmit"
+                    Text="Save Assignment"
+                    Clicked="EditAssignmentSubmit_Clicked"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Padding="10" Spacing="5"
+                x:Name="DeleteAssignmentForm">
+                <!-- Šajā Layout atrodas forma Assignment objekta dzēšanai. -->
+
+                <!-- Izvēlne dzēšamā Assignment objekta izvēlei no eksistējošajiem. -->
+                <!-- Izvēlnes opcijas tiek pievienotas ar C#. -->
+                <Picker x:Name="SelectDeleteAssignment"    
+                    Title="Select Assignment:"
+                    SelectedIndexChanged="SelectDeleteAssignment_SelectedIndexChanged">
+                </Picker>
+
+                <!-- Poga izvēlētā Assignment objekta dzēšanai no saraksta. -->
+                <Button
+                    x:Name="DeleteAssignmentSubmit"
+                    Text="Delete Assignment"
+                    Clicked="DeleteAssignmentSubmit_Clicked"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Padding="10" Spacing="5"
+                x:Name="SubmissionForm">
+                <!-- Šajā Layout atrodas forma Submission objekta pievienošanai vai labošanai. -->
+
+                <!-- Sekojošo izvēlņu opcijas tiek pievienotas ar C#. -->
+                <!-- Izvēlne Submission objekta Student izvēlei no eksistējošajiem Student. -->
+                <Picker x:Name="SubmissionStudentPicker"
+                    Title="Select Submission student:">
+                </Picker>
+                <!-- Izvēlne Submission objekta Assignment izvēlei no eksistējošajiem Assignment. -->
+                <Picker x:Name="SubmissionAssignmentPicker"
+                    Title="Select Submission assignment:">
+                </Picker>
+                
+                <DatePicker
+                    x:Name="SubmissionDatePicker"
+                    MinimumDate="01/09/2024"
+                    MaximumDate="12/31/2024"/>
+                <Entry
+                    x:Name="SubmissionScoreEntry"
+                    Placeholder="Enter Submission score:"/>
+
+                <!-- Poga jauna Submission objekta saglabāšanai. -->
+                <Button
+                    x:Name="AddSubmissionSubmit"
+                    Text="Add Submission"
+                    Clicked="AddSubmissionSubmit_Clicked"/>
+                <!-- Poga labotā Submission objekta saglabāšanai. -->
+                <Button
+                    x:Name="EditSubmissionSubmit"
+                    Text="Save Submission"
+                    Clicked="EditSubmissionSubmit_Clicked"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Padding="10" Spacing="5"
+                x:Name="DeleteSubmissionForm">
+                <!-- Šajā Layout atrodas forma Submission objekta dzēšanai. -->
+
+                <!-- Izvēlne dzēšamā Assignment objekta izvēlei no eksistējošajiem. -->
+                <!-- Izvēlnes opcijas tiek pievienotas ar C#. -->
+                <Picker x:Name="SelectDeleteSubmission"
+                    Title="Select Submission:"
+                    SelectedIndexChanged="SelectDeleteSubmission_SelectedIndexChanged">
+                </Picker>
+
+                <!-- Poga izvēlētā Submission objekta dzēšanai no saraksta. -->
+                <Button
+                    x:Name="DeleteSubmissionSubmit"
+                    Text="Delete Submission"
+                    Clicked="DeleteSubmissionSubmit_Clicked"/>
+            </VerticalStackLayout>
+
+            <!-- Label, kas paredzēts kļūdu ziņojumiem. -->
+            <Label
+                x:Name="ErrorLabel"
+                IsVisible="False"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
